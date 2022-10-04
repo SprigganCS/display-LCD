@@ -1,3 +1,7 @@
+/*
+	Alunos: Arthur Rodrigues Proença, André Neves Medeiros e Tiago Soares
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -9,7 +13,7 @@ char numeros[8][23][12];
 
 void mostra_linha(int linha_indice)
 {
-	for (int j = 1; j < colunas; j++)
+	for (int j = 1; j < colunas - 1; j++)
 	{
 		numero[linha_indice][j] = 45;
 	}
