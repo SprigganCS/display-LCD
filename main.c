@@ -9,7 +9,7 @@ char numeros[8][23][12];
 
 void mostra_linha(int linha_indice)
 {
-	for (int j = 1; j < colunas - 1; j++)
+	for (int j = 1; j < colunas; j++)
 	{
 		numero[linha_indice][j] = 45;
 	}
@@ -277,7 +277,7 @@ void main()
 		if (tamanho == 0 && strcmp(numeros_, "0") == 0)
 			break;
 
-		linhas = (2 * tamanho) + 2;
+		linhas = (2 * tamanho) + 3;
 		colunas = (tamanho + 2);
 
 		for (int i = 0; i < strlen(numeros_); i++)
