@@ -1,241 +1,302 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <string.h>
 
-#define MAX 999999
+int linhas, colunas;
+char numero[23][12];
+char numeros[8][23][12];
 
-int tamanho_final = 0;
-
-char matriz_final[2000][2000];
-
-void linhaVertical(int valor_linha, int valor_coluna, int tamanho)
+void mostra_linha(int linha_indice)
 {
-	for (int linha = valor_linha; linha < valor_linha + tamanho; ++linha)
+	for (int j = 1; j < colunas - 1; j++)
 	{
-		matriz_final[linha][valor_coluna] = '|';
+		numero[linha_indice][j] = 45;
 	}
-	tamanho_final += tamanho;
 }
 
-void linhaHorizontal(int valor_linha, int valor_coluna, int tamanho)
+void mostra_prim_coluna(int coluna_indice)
 {
-	for (int coluna = valor_coluna; coluna < valor_coluna + tamanho; ++coluna)
+	for (int i = 1; i < linhas/2; i++)
 	{
-		matriz_final[valor_linha][coluna] = '-';
+		numero[i][coluna_indice] = 124;
 	}
-	tamanho_final += tamanho;
 }
 
-
-void mostraNumero(int linhas, int colunas)
+void mostra_ult_coluna(int coluna_indice)
 {
-	for (int linha = 0; linha < linhas; linha++)
+	for (int i = (linhas / 2) + 1; i < linhas - 1; i++)
 	{
-		for (int coluna = 0; coluna < colunas; coluna++)
+		numero[i][coluna_indice] = 124;
+	}
+}
+
+void primeira_linha()
+{
+	mostra_linha(0);
+}
+
+void meia_linha()
+{
+	mostra_linha(linhas / 2);
+}
+
+void ultima_linha()
+{
+	mostra_linha(linhas - 1);
+}
+
+void primeira_coluna_esq()
+{
+	mostra_prim_coluna(0);
+}
+
+void primeira_coluna_dir()
+{
+	mostra_prim_coluna(colunas - 1);
+}
+
+void ultima_coluna_esq()
+{
+	mostra_ult_coluna(0);
+}
+
+void ultima_coluna_dir()
+{
+	mostra_ult_coluna(colunas - 1);
+}
+
+void mostra_numero(int numero_indice)
+{
+	for (int i = 0; i < linhas; i++)
+	{
+		for (int j = 0; j < colunas; j++)
 		{
-			printf("%c", matriz_final[linha][coluna]);
+			numeros[numero_indice][i][j] = numero[i][j];
 		}
-		printf("\n");
 	}
 }
 
-void inicializaNumero(int linhas, int colunas)
+void mostra_zero(int indice)
 {
-	for (int linha = 0; linha < linhas; linha++)
+	for (int i = 0; i < linhas; i++)
 	{
-		for (int coluna = 0; coluna < colunas; coluna++)
+		int j;
+		for (j = 0; j < colunas; j++)
 		{
-			matriz_final[linha][coluna] = ' ';
+			numero[i][j] = ' ';
 		}
 	}
+	primeira_linha();
+
+	primeira_coluna_esq();
+	primeira_coluna_dir();
+	ultima_coluna_esq();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_zero(int tamanho, int linhas, int colunas)
+void mostra_um(int indice)
 {
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, 0, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaVertical(tamanho + 2, 0, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(linhas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_coluna_dir();
+	ultima_coluna_dir();
+	mostra_numero(indice);
 }
 
-void mostra_um(int tamanho, int linhas, int colunas)
+void mostra_dois(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_dir();
+	meia_linha();
+	ultima_coluna_esq();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_dois(int tamanho, int linhas, int colunas)
+void mostra_tres(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, 0, tamanho);
-	linhaHorizontal(linhas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_dir();
+	meia_linha();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_tres(int tamanho, int linhas, int colunas)
+void mostra_quatro(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 0, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaHorizontal(tamanho + 1, 0, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(linhas - 1, -1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_coluna_esq();
+	primeira_coluna_dir();
+	meia_linha();
+	ultima_coluna_dir();
+	mostra_numero(indice);
 }
 
-void mostra_quatro(int tamanho, int linhas, int colunas)
+void mostra_cinco(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaVertical(1, 0, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_esq();
+	meia_linha();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_cinco(int tamanho, int linhas, int colunas)
+void mostra_seis(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, 0, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(colunas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_esq();
+	meia_linha();
+	ultima_coluna_esq();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_seis(int tamanho, int linhas, int colunas)
+void mostra_sete(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, 0, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, 0, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(colunas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_dir();
+	ultima_coluna_dir();
+	mostra_numero(indice);
 }
 
-void mostra_sete(int tamanho, int linhas, int colunas)
+void mostra_oito(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_esq();
+	primeira_coluna_dir();
+	meia_linha();
+	ultima_coluna_esq();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_oito(int tamanho, int linhas, int colunas)
+void mostra_nove(int indice)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, 0, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, 0, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(colunas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	for (int i = 0; i < linhas; i++)
+	{
+		int j;
+		for (j = 0; j < colunas; j++)
+		{
+			numero[i][j] = ' ';
+		}
+	}
+	primeira_linha();
+	primeira_coluna_esq();
+	primeira_coluna_dir();
+	meia_linha();
+	ultima_coluna_dir();
+	ultima_linha();
+	mostra_numero(indice);
 }
 
-void mostra_nove(int tamanho, int linhas, int colunas)
+void mostra_numero_function(int n, int index)
 {
-
-	inicializaNumero(linhas, colunas);
-
-	linhaHorizontal(0, 1, tamanho);
-	linhaVertical(1, 0, tamanho);
-	linhaVertical(1, colunas - 1, tamanho);
-	linhaHorizontal(tamanho + 1, 1, tamanho);
-	linhaVertical(tamanho + 2, colunas - 1, tamanho);
-	linhaHorizontal(colunas - 1, 1, tamanho);
-	mostraNumero(linhas, colunas);
+	void (*function[10])(int index) = {mostra_zero, mostra_um, mostra_dois, mostra_tres, mostra_quatro, mostra_cinco, mostra_seis, mostra_sete, mostra_oito, mostra_nove};
+	function[n](index);
 }
 
-void main(int argc, char *argv[])
+void main()
 {
-	char numeros[MAX];
-	int tamanho, linhas, colunas;
+	char numeros_[9];
+	int tamanho;
 
 	while (1)
 	{
 		int indice_numero = 0;
 
-		scanf("%i %s", &tamanho, numeros);
+		scanf("%i %s", &tamanho, numeros_);
 
-		if (tamanho == 0 && strcmp(numeros, "0") == 0)
+		if (tamanho == 0 && strcmp(numeros_, "0") == 0)
 			break;
 
 		linhas = (2 * tamanho) + 2;
 		colunas = (tamanho + 2);
 
-		char matriz_numeros_final[2000][2000];
-
-		while (indice_numero < strlen(numeros))
+		for (int i = 0; i < strlen(numeros_); i++)
 		{
-
-			switch (numeros[indice_numero])
+			mostra_numero_function(numeros_[i] - '0', i);
+		}
+		int i, j, k;
+		for (i = 0; i < linhas; i++)
+		{
+			for (j = 0; j < strlen(numeros_); j++)
 			{
-			case 48:
-				mostra_zero(tamanho, linhas, colunas);
-				break;
-			case 49:
-				mostra_um(tamanho, linhas, colunas);
-				break;
-			case 50:
-				mostra_dois(tamanho, linhas, colunas);
-				break;
-			case 51:
-				mostra_tres(tamanho, linhas, colunas);
-				break;
-			case 52:
-				mostra_quatro(tamanho, linhas, colunas);
-				break;
-			case 53:
-				mostra_cinco(tamanho, linhas, colunas);
-				break;
-			case 54:
-				mostra_seis(tamanho, linhas, colunas);
-				break;
-			case 55:
-				mostra_sete(tamanho, linhas, colunas);
-				break;
-			case 56:
-				mostra_oito(tamanho, linhas, colunas);
-				break;
-			case 57:
-				mostra_nove(tamanho, linhas, colunas);
-				break;
-			default:
+				for (k = 0; k < colunas; k++)
+				{
+					printf("%c", numeros[j][i][k]);
+				}
+				if (j < strlen(numeros_) - 1)
+					printf(" ");
 			}
-
-			indice_numero++;
+			printf("\n");
 		}
 	}
 }
